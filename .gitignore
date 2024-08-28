@@ -1,0 +1,5 @@
+#Ignoring reports / logs Robot files
+*/robot/*.xml
+*/robot/*.html
+*/robot/*.log
+*/robot/*.png
