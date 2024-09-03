@@ -1,5 +1,2 @@
-#Ignoring reports / logs Robot files
-*/robot/*.xml
-*/robot/*.html
-*/robot/*.log
-*/robot/*.png
+#Ignoring output folder from Robot execution
+*/robot/output
