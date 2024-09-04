@@ -1,6 +1,12 @@
 # Estudos Robot
 Este repositório tem por objetivo armazenar os estudos do framework Robot, utilizado para automações de testes.
 
+Para executar os scripts Robot, basta rodar o comando abaixo passando como único argumento o nome do diretório que queira utilizar. O diretório é a "aplicação" alvo dos testes
+
+```powershell
+run_robot_scripts.sh organo
+```
+
 ## Organo
 Esta aplicação foi escrita em React, e extraída diretamente do Alura.
 Para evitar a instalação do Node na máquina local, uma imagem Docker foi empregada para abstrair o runtime da aplicação.

@@ -15,10 +15,10 @@ printf "*****************************
 *****************************\n\n"
 
 robot --version
+rm -rf $OUTPUT_FOLDER 2> /dev/null
 
 i=1
 for robot_script in $ROBOT_FOLDER/*.robot; do
-    rm -rf $OUTPUT_FOLDER 2> /dev/null
     printf "\n$i) Running $(basename $robot_script)\n"
 
     mkdir $OUTPUT_FOLDER/script_$i 2> /dev/null
