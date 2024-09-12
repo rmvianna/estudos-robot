@@ -1,5 +1,8 @@
 *** Settings ***
 Library        SeleniumLibrary
+Library        FakerLibrary  locale=pt_BR
+Library        Collections
+
 Resource       ${CURDIR}/ext/setup_teardown.robot
 Test Setup     Acessar sistema do Organo
 Test Teardown  Fechar sistema do Organo
@@ -9,34 +12,69 @@ ${CAMPO_NOME}              id:form-nome
 ${CAMPO_CARGO}             id:form-cargo
 ${CAMPO_IMAGEM}            id:form-imagem
 ${CAMPO_TIME}              class:lista-suspensa
-${OPCAO_PROGRAMACAO}       //option[contains(.,'Programação')]
-${OPCAO_FRONT}             //option[contains(.,'Front-End')]
-${OPCAO_DADOS}             //option[contains(.,'Data Science')]
-${OPCAO_DEVOPS}            //option[contains(.,'Devops')] 
-${OPCAO_UX}                //option[contains(.,'UX e Design')]
-${OPCAO_MOBILE}            //option[contains(.,'Mobile')]
-${OPCAO_INOVACAO}          //option[contains(.,'Inovação e Gestão')]
-${COLABORADOR}             class:colaborador
-${SECAO_COLABORADOR_PROG}  //section[@class='time'][position()=1]
+@{TIMES}
+...       //option[contains(.,'Programação')]
+...       //option[contains(.,'Front-End')]
+...       //option[contains(.,'Data Science')]
+...       //option[contains(.,'Devops')] 
+...       //option[contains(.,'UX e Design')]
+...       //option[contains(.,'Mobile')]
+...       //option[contains(.,'Inovação e Gestão')]
+@{CARDS_TIMES}
+...       //section[@class='time'][position()=1]
+...       //section[@class='time'][position()=2]
+...       //section[@class='time'][position()=3]
+...       //section[@class='time'][position()=4]
+...       //section[@class='time'][position()=5]
+...       //section[@class='time'][position()=6]
+...       //section[@class='time'][position()=7]
+${COLABORADOR}             //div[@class='colaborador']
 
 *** Test Cases ***
-Verificar se o cadastro de um novo membro no time de Programação funciona
+Teste #1: Criar um novo membro no time de Programação
+    ${opcaoProgramacao}   Get From List  ${TIMES}  0
+    ${cardTimeProgramacao}  Get From List  ${CARDS_TIMES}  0
+
+    Set Test Variable  ${TIME_ATUAL}  ${opcaoProgramacao}
+    Set Test Variable  ${CARD_TIME_ATUAL}  ${cardTimeProgramacao}
+
     Dado que eu preencho os campos do formulário
     Quando clicar no botão de criar
     Então o novo membro deve ser adicionado ao card correspondente
 
+Teste #2: Criar um novo membro em cada time disponível
+    FOR    ${idx}    ${time}    IN ENUMERATE    @{TIMES}
+        ${cardTime}  Get From List    ${CARDS_TIMES}    ${idx}
+
+        Set Test Variable  ${TIME_ATUAL}  ${time}
+        Set Test Variable  ${CARD_TIME_ATUAL}  ${cardTime}
+        
+        Dado que eu preencho os campos do formulário
+        Quando clicar no botão de criar
+        Então o novo membro deve ser adicionado ao card correspondente
+    END
+
 *** Keywords ***
+Dado que eu informo os dados do colaborador do ${time}
+    Log To Console    ${time}
+
 Dado que eu preencho os campos do formulário
-    Input Text    ${CAMPO_NOME}    Akemi
-    Input Text    ${CAMPO_CARGO}    Desenvolvedora
+    ${nome}       FakerLibrary.First Name
+    ${cargo}      FakerLibrary.Job
+    
+    Input Text    ${CAMPO_NOME}    ${nome}
+    Input Text    ${CAMPO_CARGO}    ${cargo}
     Input Text    ${CAMPO_IMAGEM}    https://picsum.photos/200/300
     Click Element    ${CAMPO_TIME}
-    Click Element    ${OPCAO_PROGRAMACAO}
+    Click Element    ${TIME_ATUAL}
     Capture Element Screenshot    ${FORM_CADASTRO}
 
 Quando clicar no botão de criar
     Click Element    ${BOTAO_CARD}
 
 Então o novo membro deve ser adicionado ao card correspondente
-    Capture Element Screenshot    ${SECAO_COLABORADOR_PROG}
-    Element Should Be Visible    ${COLABORADOR}
+    ${colaborador}  Catenate  ${CARD_TIME_ATUAL}  ${COLABORADOR}
+
+    Sleep  2s   Aguardar a imagem ser renderizada no browser antes do print
+    Capture Element Screenshot    ${CARD_TIME_ATUAL}
+    Element Should Be Visible    ${colaborador}

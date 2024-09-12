@@ -1,2 +1,15 @@
 #Ignoring output folder from Robot execution
 */robot/output
+
+#Ignoring logs/output files generated from Robot execution outside output folder
+*.log
+*/robot/*.log
+
+*.xml
+*/robot/*.xml
+
+*.html
+*/robot/*.html
+
+*.png
+*/robot/*.png

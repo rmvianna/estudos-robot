@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+
 Resource       ${CURDIR}/ext/setup_teardown.robot
 Test Setup     Acessar sistema do Organo
 Test Teardown  Fechar sistema do Organo
@@ -10,7 +11,7 @@ ${ERRO_CAMPO_CARGO}       id:form-cargo-erro
 ${ERRO_CAMPO_TIME}        id:form-times-erro
 
 *** Test Cases ***
-Verificar se acusa erro de campos obrigatórios no formulário
+Teste #1: Verificar erro de campos obrigatórios no formulário
     Dado que eu não preencho os campos do formulário
     Quando clicar no botão de criar
     Então devo visualizar mensagens de erro sobre os campos obrigatórios
