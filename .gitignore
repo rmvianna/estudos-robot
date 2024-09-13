@@ -1,7 +1,11 @@
-#Ignoring output folder from Robot execution
+#Ignoring Robot output folder execution
 */robot/output
 
+#Ignoring Python cache folder
+**/__pycache__
+
 #Ignoring logs/output files generated from Robot execution outside output folder
+#This happens when you run test cases directly from IDE
 *.log
 */robot/*.log
 

@@ -7,6 +7,12 @@ Para executar os scripts Robot, basta rodar o comando abaixo passando como únic
 run_robot_scripts.sh organo
 ```
 
+Se quiser rodar os TestCases de um script específico, pode passar o segundo argumento correspondente ao nome do arquivo
+
+```powershell
+run_robot_scripts.sh organo preenchimento_completo
+```
+
 ## Organo
 Esta aplicação foi escrita em React, e extraída diretamente do Alura.
 Para evitar a instalação do Node na máquina local, uma imagem Docker foi empregada para abstrair o runtime da aplicação.
