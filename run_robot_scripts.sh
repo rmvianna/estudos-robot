@@ -1,6 +1,6 @@
 #!/bin/bash
 FOLDER_NAME=$1
-ROBOT_FOLDER=$FOLDER_NAME/robot
+ROBOT_FOLDER=$FOLDER_NAME/robot/tests
 OUTPUT_FOLDER=$ROBOT_FOLDER/output
 
 ROBOT_SCRIPT_NAME=$2
@@ -11,6 +11,11 @@ if [ ! -d "$FOLDER_NAME" ]; then
 fi
 
 printf "Folder selected: $FOLDER_NAME\n"
+
+if [ ! -d "$ROBOT_FOLDER" ]; then
+    printf "The project $FOLDER_NAME has no structure robot/tests!"
+    exit 1
+fi
 
 if [ ! -z "$ROBOT_SCRIPT_NAME" ]; then
     ROBOT_SCRIPT="$ROBOT_FOLDER/$ROBOT_SCRIPT_NAME.robot"
