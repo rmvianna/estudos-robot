@@ -12,6 +12,9 @@ Se quiser rodar os TestCases de um script específico, pode passar o segundo arg
 ```powershell
 run_robot_scripts.sh organo preenchimento_completo
 ```
+## Aparecida Nutrição
+Este site foi criado em Javascript + HTML + CSS, fruto de estudos em JS.
+A URL aponta para um arquivo na máquina local, portanto basta clonar o repositório e ajustar a variável URL para corrigir o apontamento do arquivo index.html do site
 
 ## Organo
 Esta aplicação foi escrita em React, e extraída diretamente do Alura.
